@@ -16,7 +16,6 @@ def tesselation_function(input_file_path, output_file_path, offset, iters):
     
     binary_brain_mask = np.sum(binary_brain_mask_inp, axis=3)
     
-    
     # print(binary_brain_mask.shape)
     
     # Creating the surface mesh using the marching cubes algorithm
@@ -28,14 +27,10 @@ def tesselation_function(input_file_path, output_file_path, offset, iters):
     mesh = pv.PolyData(vertices, faces_1)
     
     # Mesh Decimation
-    mesh = mesh.smooth(iters=100)
+    mesh = mesh.smooth(iters)
     
     # Overlapping regions are created using mesh translation
     
-    # type(offset) -> float
-    # Offset adjusts the overlapping distance.
-    
-    offset = 0.1  
     overlap_mesh = mesh.copy()
     overlap_mesh.translate([offset, 0, 0])
     
@@ -43,10 +38,10 @@ def tesselation_function(input_file_path, output_file_path, offset, iters):
     final_mesh = mesh + overlap_mesh
     
     # Final mesh decimation
-    final_mesh = final_mesh.smooth(iters=100)
+    final_mesh = final_mesh.smooth(iters)
     
     # Saving the required file in the ".stl" format
-    output_mesh_file = "/output_dir/overtess_1.stl"
+    output_mesh_file = output_file_path
     final_mesh.save(output_mesh_file)
 
     print("Tesselation Saved!") 
