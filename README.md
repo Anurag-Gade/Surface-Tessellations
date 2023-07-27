@@ -15,6 +15,12 @@ The overall structure of this project is as follows:
 
 Run `main.py` after mentioning the appropriate file paths, and parameters. 
 
+If the script executes seamlessly, the below message will appear on the terminal.
+```
+>>> python main.py
+Tesselation Saved!!!
+```
+
 `overlapping_tessellations.py` contains the script to create tesselations. `arr_stacking.py` contains the script to prepare the face input suitable for the PyVista's PolyData function. `main.py` is the runner script.
 
 *Required packages and libraries*
