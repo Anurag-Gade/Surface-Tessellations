@@ -14,7 +14,7 @@ def stack_arrs(input_arr):
 	empty_arr = []
 	for i in test_arr:
 	    
-	    i.insert(0,len(i)) #If the length of the list is 3, we add 3 to the beginning of the list
+	    i.insert(0,len(i)) #If the length of the list is 3, 3 is added to the beginning of the list
 	    # print(i)
 	    empty_arr.append(i) 
     
