@@ -4,46 +4,46 @@ import nibabel as nib
 from arr_stacking import *
 from skimage import measure
 
-# Load the MRI data
-mri_file_path = "/data/pnl/home/ag1666/coeff_dir/data/ABCD/dwi_fodf.nii"
+# Load the MRI data which is a NIftI file (.nii)
+mri_file_path = "/data_dir/mri.nii"
 
-#Loading the brain data
+#Loading the brain data 
 brain = nib.load(mri_file_path)
 
 #Converting to a NumPy array
-binary_brain_mask_4d = brain.get_fdata()
+binary_brain_mask_inp = brain.get_fdata()
 
-binary_brain_mask = np.sum(binary_brain_mask_4d, axis=3)
+binary_brain_mask = np.sum(binary_brain_mask_inp, axis=3)
 
 
 # print(binary_brain_mask.shape)
 
-# Assuming you have preprocessed and segmented the MRI data,
-# you have a binary mask where 1 represents the brain region of interest.
-# binary_brain_mask = np.load(mri_file, allow_pickle=True)
-
-# Perform marching cubes to create the surface mesh
+# Creating the surface mesh using the marching cubes algorithm
 vertices, faces, _, _ = measure.marching_cubes(binary_brain_mask, 0.5)
 
 faces_1 = stack_arrs(faces)
 
-# Create a Pyvista mesh from the marching cubes output
+# Using the output from the marching cubes algorithm, a PyVista mesh is created
 mesh = pv.PolyData(vertices, faces_1)
 
-# Optional smoothing or decimation of the mesh
+# Mesh Decimation
 mesh = mesh.smooth(n_iter=100)
 
-# Create overlapping regions by translating the mesh
-offset = 0.1  # Adjust the overlap distance as needed
+# Overlapping regions are created using mesh translation
+
+# type(offset) -> float
+# Offset adjusts the overlapping distance.
+
+offset = 0.1  
 overlap_mesh = mesh.copy()
 overlap_mesh.translate([offset, 0, 0])
 
-# Combine the meshes into a single overlapping mesh
+# Mesh combination
 final_mesh = mesh + overlap_mesh
 
-# Optional smoothing or decimation of the final mesh
+# Final mesh decimation
 final_mesh = final_mesh.smooth(n_iter=100)
 
-# Save the resulting mesh to a file (e.g., STL or OBJ)
-output_mesh_file = "/data/pnl/home/ag1666/coeff_dir/OverlappingTesselations/outputs/overtess_1.stl"
+# Saving the required file in the ".stl" format
+output_mesh_file = "/output_dir/overtess_1.stl"
 final_mesh.save(output_mesh_file)
