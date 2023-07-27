@@ -1,6 +1,6 @@
 # Surface-Tessellations
 
-A tessellation or tiling is essentially covering the surface of a 3D object with shapes (tiles). This code demonstrates the surface tessellation of an MR brain image, with overlapping tiles. To achieve overlaps in the tiles, an offset has been added.
+A tessellation or tiling is essentially covering the surface of a 3D object with shapes (tiles). This code demonstrates the surface tessellation of an MR brain image, with overlapping tiles. To achieve overlaps in the tiles, an offset has been added. Below is an example of a surface tessellated brain scan.
 
 <p align="center">
   <img width="460" height="300" src="https://github.com/Anurag-Gade/Surface-Tessellations/assets/88252632/d42664d9-7c1e-47df-b8a6-f8447349bfdf">
